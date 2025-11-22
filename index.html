@@ -1,30 +1,141 @@
 <!DOCTYPE html>
 <html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <title>Kadir'in Web Sitesi</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tüm Sayfada Kutular + Login</title>
     <style>
-        body { 
-            background-color: #f0f0f0; 
-            font-family: Arial, sans-serif; 
-            text-align: center; 
-            margin-top: 50px; 
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        height: 100vh;
+        overflow: hidden;
+        background: #000;
+        font-family: sans-serif;
+      }
+
+      /* Arkadaki yeşil ışık */
+      .light-strip {
+        position: fixed;
+        top: -40%;
+        left: 0;
+        width: 100%;
+        height: 60%;
+        background: linear-gradient(
+          to bottom,
+          rgba(24, 28, 24, 0.8) 0%,
+          #a90432 50%,
+          rgba(22, 24, 22, 0.8) 100%
+        );
+        animation: moveDown 4s linear infinite;
+        z-index: 0;
+      }
+
+      @keyframes moveDown {
+        0% {
+          top: -40%;
         }
-        h1 { color: #333; }
-        .kutu {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            display: inline-block;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        100% {
+          top: 100%;
         }
+      }
+
+      /* Öndeki kutular */
+      .kutu-container {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+        z-index: 1;
+      }
+
+      .kutu {
+        width: 6.25%;
+        aspect-ratio: 1 / 1;
+        background-color: rgb(0, 0, 0);
+        transition: background-color 1s ease;
+        margin: 2px;
+      }
+
+      .kutu:hover {
+        background-color: #fdb912;
+        transition: none;
+      }
+
+      /* Login ekranı */
+      .login-wrapper {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 320px;
+        padding: 30px;
+        background: rgba(0, 0, 0, 0.8);
+        border: 2px solid #a90432;
+        border-radius: 12px;
+        box-shadow: 0 0 20px #a90432;
+        z-index: 2;
+        text-align: center;
+      }
+
+      .login-wrapper h2 {
+        color: #a90432;
+        margin-bottom: 20px;
+      }
+
+      .login-wrapper input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        background: #111;
+        border: 1px solid #fdb912;
+        border-radius: 6px;
+        color: #a90432;
+        font-size: 16px;
+      }
+
+      .login-wrapper button {
+        width: 100%;
+        padding: 10px;
+        background: #a90432;
+        color: #000;
+        font-weight: bold;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .login-wrapper button:hover {
+        background: #6db66d;
+      }
     </style>
-</head>
-<body>
-    <div class="kutu">
-        <h1>Merhaba, Ben Kadir! 👋</h1>
-        <p>Bu benim GitHub üzerindeki ilk web sitem.</p>
-        <p>Şu an yapım aşamasında...</p>
+  </head>
+  <body>
+    <div class="light-strip"></div>
+
+    <div class="kutu-container">
+      <script>
+        const container = document.currentScript.parentElement;
+        const total = 16 * 9 * 2;
+        for (let i = 0; i < total; i++) {
+          const div = document.createElement("div");
+          div.className = "kutu";
+          container.appendChild(div);
+        }
+      </script>
     </div>
-</body>
+
+    <!-- Login ekranı -->
+    <div class="login-wrapper">
+      <h2>Giriş Yap</h2>
+      <input type="text" placeholder="Kullanıcı Adı" />
+      <input type="password" placeholder="Şifre" />
+      <button>Giriş</button>
+    </div>
+  </body>
 </html>
